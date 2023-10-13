@@ -13,10 +13,9 @@
     setPPGData($ppgStore, Number(data.existing.teamid));
 
     $scoutingData.id = data.id;
-    // TODO: set all of the data that is returned from server to the store
-    // $scoutingData.matchid = data.existing.matchid;
-    // $scoutingData.teamid = data.existing.teamid;
-    // $scoutingData.teamcolor = data.existing.allianceColor;
+    $scoutingData.matchid = data.existing.matchid;
+    $scoutingData.teamid = data.existing.teamid;
+    $scoutingData.teamcolor = data.existing.allianceColor;
 </script>
 
 {#if $scoutingPage !== ScoutingPage.loading}

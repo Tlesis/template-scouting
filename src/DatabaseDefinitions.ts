@@ -50,10 +50,10 @@ export interface Database {
       "scouting-data": {
         // these are the required rows
         Row: {
-          allianceColor?: number
-          id?: number
-          matchid?: number
-          teamid?: number
+          allianceColor: number
+          id: number
+          matchid: number
+          teamid: number
         }
         Insert: {
           allianceColor?: number
