@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { SupabaseClient } from "@supabase/supabase-js";
-    import type { Database } from "../../../../DatabaseDefinitions";
+    import type { Database } from "$lib/supabase";
     import { ScoutingPage, compileAndScore, ppgStore, scoutingData, scoutingPage } from "$lib/stores";
     import Auto from "./auto/Auto.svelte";
     import Endgame from "./endgame/Endgame.svelte";

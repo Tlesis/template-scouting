@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { AllianceColor } from "./types";
-import type { Database } from "../DatabaseDefinitions";
+import type { Database } from "./supabase";
 
 /******************************************************/
 
@@ -21,22 +21,23 @@ const defaultData: ScoutingData = {
 
 export const scoutingData = writable<ScoutingData>(defaultData);
 
-export const compileAndScore = (data: ScoutingData) => {
+export const compileAndScore = (data: ScoutingData) => score(compile(data));
 
+const compile = (data: ScoutingData) => {
     // TODO: compile all of the data to be able to be sent to the database
-    const compiledData = {
+    const compiledData: Database["public"]["Tables"]["scouting-data"]["Row"] = {
         id: data.id,
         matchid: data.matchid,
         teamid: data.teamid,
         allianceColor: data.teamcolor
     };
 
-    return score(compiledData);
+    return compiledData;
 };
 
 const score = (data: Database["public"]["Tables"]["scouting-data"]["Row"]) => {
 
-    // score the data
+    // TODO: write the scoring of the data
     return {
         compiledData: data,
         scoredData: {
