@@ -23,7 +23,7 @@
 
     const round = (num: number) => Math.round(num * 10) / 10;
 
-    function calculatePercentileRanks(arr: number[]): {[key: number]: number} {
+    const calculatePercentileRanks = (arr: number[]): {[key: number]: number} => {
         const sortedArr = [...arr].sort((a, b) => a - b);
         const result: {[key: number]: number} = {};
 
@@ -48,7 +48,7 @@
 <tr>
     <td class="border-t">{ppg.teamid}</td>
     <td class="border-t border-x break-words">
-        <a href={`https://theorangealliance.org/teams/${ppg.teamid}`} target="_blank" class="underline text-link font-normal">
+        <a href={`https://thebluealliance.com/team/${ppg.teamid}`} target="_blank" class="underline text-link font-normal">
             {teams.find((team) => team.teamNumber === ppg.teamid)?.teamName ?? ppg.teamid.toString()}
         </a>
     </td>
