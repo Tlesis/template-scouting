@@ -24,7 +24,6 @@
         <thead class="bg-nav rounded">
             <!-- 7.7% is about 1/13 of the available space
                  the others are multiples of 7.7% -->
-                 <th class="w-[3.8%]">Video</th>
                  <th class="w-[7.7%]">Match</th>
                  <th class="w-[23.1%]">Red Alliance</th>
                  <th class="w-[23.1%]">Blue Alliance</th>
