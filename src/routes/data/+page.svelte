@@ -68,6 +68,7 @@
                         </svg>
                         {team.teamid}
                     </td>
+                    <!-- TODO: fill out with data you want to show -->
                 </tr>
             {/each}
         </tbody>
