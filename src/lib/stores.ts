@@ -35,7 +35,7 @@ const compile = (data: ScoutingData) => {
     return compiledData;
 };
 
-const score = (data: Database["public"]["Tables"]["scouting-data"]["Row"]) => {
+export const score = (data: Database["public"]["Tables"]["scouting-data"]["Row"]) => {
 
     // TODO: write the scoring of the data
     return {

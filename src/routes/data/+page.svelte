@@ -26,20 +26,20 @@
         document.body.removeChild(link);
     };
 
-    // sort teams by match number then team color then team number from ascending order
+    // sort teams by match number then team color then team number in ascending order
     data.existing.sort((a, b) => {
 
         // sort by team match id if not the same
         if (a.matchid !== b.matchid) {
-            return Number(a.matchid) - Number(b.matchid);
+            return a.matchid - b.matchid;
 
         // sort by team color if not the same
         } else if (a.allianceColor !== b.allianceColor) {
-            return Number(a.allianceColor) - Number(b.allianceColor);
+            return a.allianceColor - b.allianceColor;
 
         // sort by team id
         } else {
-            return Number(a.teamid) - Number(b.teamid);
+            return a.teamid - b.teamid;
         }
     });
 </script>
@@ -59,6 +59,7 @@
             {/each}
         </thead>
         <tbody class="border-2">
+            <!-- TODO: fill table so that each element matches the header defined above-->
             {#each data.existing as team}
                 <tr class="text-w border border-slate-500">
                     <td>{team.matchid}</td>

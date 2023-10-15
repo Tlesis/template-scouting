@@ -1,22 +1,20 @@
+import { CompLevel, EVENT, fetchOptions, type FRCEvents, type StatMatch } from "$lib/types";
 import type { PageServerLoad } from "../$types";
 
 export const load = (async () => {
 
-    const [ matches, eventName ] = await Promise.all([
+    const [ eventName, statMatch ] = await Promise.all([
 
-        // TODO: fetch the event match data
-        /** you should have or be able to figure out:
-         *      who played on what alliance
-         *      what the scores were
-         *      what the match number was
-         */
-        [{}],
+        fetch(`https://frc-api.firstinspires.org/v3.0/${EVENT.season}/events?eventCode=${EVENT.eventCode}`, fetchOptions)
+            .then((res) => res.json() as Promise<FRCEvents>)
+            .then((res) => res.Events[0].name),
 
-        // TODO: fetch the full event name
-        "[GET FULL EVENT NAME]"
+        fetch(`https://api.statbotics.io/v2/matches/event/${EVENT.season}${EVENT.eventCode}`)
+            .then((res) => res.json() as Promise<StatMatch[]>)
+            .then((res) => res.filter((match) => match.comp_level === CompLevel.Qm))
 
     ]);
 
-    return { matches, eventName };
+    return { eventName, statMatch };
 
 }) satisfies PageServerLoad;

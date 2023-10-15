@@ -1,4 +1,4 @@
-import { AllianceColor } from "$lib/types";
+import { AllianceColor, EVENT, fetchOptions, type FRCSchedule } from "$lib/types";
 import type { PageServerLoad } from "./$types";
 import { fail, type Actions, redirect } from "@sveltejs/kit";
 
@@ -6,19 +6,21 @@ export const load = (async ({ locals: { supabase } }) => {
 
     const [matches, existing] = await Promise.all([
 
-        // TODO: get the full list of matches and teams from the api
-        // format the data like this:
-        [{
-            matchNumber: 1,
-            red: [1810],
-            blue: [9316]
-        }],
+        // get the match schedule from FRC Events API
+        fetch(`https://frc-api.firstinspires.org/v3.0/${EVENT.season}/schedule/${EVENT.eventCode}?tournamentLevel=Qualification`, fetchOptions)
+            .then((res) => res.json() as Promise<FRCSchedule>)
+            .then((res) => res.Schedule.map((match) => ({
+                matchNumber: match.matchNumber,
+                red: match.teams.filter((team) => team.station.slice(0, 1) === "R").map((team) => team.teamNumber),
+                blue: match.teams.filter((team) => team.station.slice(0, 1) === "B").map((team) => team.teamNumber)
+            }))),
 
         // get the scouting data from the database
-        supabase.from("scouting-data").select().then(({ data, error }) => {
-            if (error) throw fail(500, { error: error.message });
-            return data;
-        })
+        supabase.from("scouting-data").select()
+            .then(({ data, error }) => {
+                if (error) throw fail(500, { error: error.message });
+                return data;
+            })
     ]);
 
     return { matches, existing };
@@ -50,13 +52,13 @@ export const actions = {
         }
 
         /* upload data */
-        // TODO: just reuse the code from the fetch from earlier
-        const matchs =
-        [{
-            matchNumber: 1,
-            red: [1810],
-            blue: [9316]
-        }];
+        const matchs = await fetch(`https://frc-api.firstinspires.org/v3.0/${EVENT.season}/schedule/${EVENT.eventCode}?tournamentLevel=Qualification`, fetchOptions)
+            .then((res) => res.json() as Promise<FRCSchedule>)
+            .then((res) => res.Schedule.map((match) => ({
+                matchNumber: match.matchNumber,
+                red: match.teams.filter((team) => team.station.slice(0, 1) === "R").map((team) => team.teamNumber),
+                blue: match.teams.filter((team) => team.station.slice(0, 1) === "B").map((team) => team.teamNumber)
+            })));
 
         let teamcolor = null;
 
