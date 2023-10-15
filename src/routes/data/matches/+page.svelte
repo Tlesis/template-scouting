@@ -29,7 +29,6 @@
                  <th class="w-[23.1%]">Red Alliance</th>
                  <th class="w-[23.1%]">Blue Alliance</th>
                  <th class="w-[15.4%]">Scores</th>
-                 <th class="w-[15.4%]">Win Pred</th>
         </thead>
         <tbody>
             {#each matches as match, i}
