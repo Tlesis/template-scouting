@@ -5,10 +5,16 @@
     import Auto from "./auto/Auto.svelte";
     import Endgame from "./endgame/Endgame.svelte";
     import Teleop from "./teleop/Teleop.svelte";
+    import { WinState } from "$lib/types";
 
     export let supabase: SupabaseClient<Database>;
 
     const submit = async () => {
+        if ($scoutingData.win === WinState.unset) {
+            alert("Please set Won, Lost or Tied!");
+            return;
+        }
+
         $scoutingPage = ScoutingPage.loading;
 
         const data = compileAndScore($scoutingData);
@@ -47,11 +53,8 @@
     <Teleop/>
 {:else if $scoutingPage === ScoutingPage.endgame}
     <Endgame/>
-    <div class="flex justify-center my-4">
-        <button
-            class="text-w text-2xl py-3 bg-active active:bg-inactive rounded w-5/6"
-            on:click={submit}>
-            Submit
-        </button>
+    <div class="flex justify-center mt-8">
+        <button class={`w-5/6 text-xl shadow-sm rounded ${($scoutingData.win !== WinState.unset) ? "text-w bg-active" : "text-secondary bg-inactive"} py-3`}
+                on:click={submit}>Submit</button>
     </div>
-{/if}
+{/if}``

@@ -2,8 +2,8 @@ import { PUBLIC_FRC_API_KEY, PUBLIC_FRC_USERNAME } from "$env/static/public";
 
 // TODO: set event info
 export const EVENT = {
-    season: 0,
-    eventCode: "event key"
+    season: 2022,
+    eventCode: "mose"
 };
 
 export const fetchOptions = {
@@ -15,6 +15,13 @@ export const fetchOptions = {
 export enum AllianceColor {
     red = 0,
     blue = 1
+}
+
+export enum WinState {
+    Win = 2,
+    Loss = 1,
+    Tie = 0,
+    unset = -1
 }
 
 /******************************************************/
